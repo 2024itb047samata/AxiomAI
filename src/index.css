@@ -56,6 +56,59 @@
 
 /* Custom Premium Utilities & Animations using ONLY official colors */
 
+/* Immersive 3D Perspective Grid */
+.perspective-container {
+  position: absolute;
+  inset: 0;
+  perspective: 350px;
+  perspective-origin: 50% 30%;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.perspective-grid {
+  position: absolute;
+  width: 300%;
+  height: 300%;
+  top: -100%;
+  left: -100%;
+  background-image: 
+    linear-gradient(to right, rgba(217, 232, 226, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(217, 232, 226, 0.04) 1px, transparent 1px);
+  background-size: 50px 50px;
+  transform: rotateX(75deg);
+  transform-origin: center center;
+  animation: gridDrift3D 25s linear infinite;
+  mask-image: radial-gradient(circle at center, rgba(0, 0, 0, 1) 20%, rgba(0, 0, 0, 0) 70%);
+}
+
+@keyframes gridDrift3D {
+  0% { transform: rotateX(75deg) translateY(0px); }
+  100% { transform: rotateX(75deg) translateY(50px); }
+}
+
+/* Volumetric Light Beam/Ray */
+.volumetric-light-ray {
+  position: absolute;
+  top: -20%;
+  left: 30%;
+  width: 40%;
+  height: 140%;
+  background: linear-gradient(105deg, rgba(255, 200, 1, 0.04) 0%, rgba(255, 153, 50, 0.01) 40%, transparent 100%);
+  transform: rotate(-12deg);
+  transform-origin: top left;
+  filter: blur(40px);
+  pointer-events: none;
+  z-index: 0;
+  animation: lightRayWobble 12s ease-in-out infinite alternate;
+}
+
+@keyframes lightRayWobble {
+  0% { transform: rotate(-14deg) scaleX(0.9); opacity: 0.7; }
+  100% { transform: rotate(-10deg) scaleX(1.1); opacity: 1; }
+}
+
 /* Cyber Grid Overlays */
 .grid-overlay {
   background-image: 
@@ -67,6 +120,43 @@
 
 .radial-glow {
   background: radial-gradient(circle at var(--x, 50%) var(--y, 50%), rgba(255, 200, 1, 0.1) 0%, transparent 60%);
+}
+
+/* Premium Layered Glass System */
+.premium-glass-card {
+  background: linear-gradient(135deg, rgba(23, 43, 54, 0.7) 0%, rgba(17, 76, 90, 0.3) 100%);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(217, 232, 226, 0.08);
+  box-shadow: 
+    0 4px 30px rgba(0, 0, 0, 0.4),
+    inset 0 1px 1px rgba(217, 232, 226, 0.05);
+  transition: all 400ms cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.premium-glass-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255, 200, 1, 0.1) 0%, transparent 40%, transparent 100%);
+  opacity: 0;
+  transition: opacity 400ms ease;
+  pointer-events: none;
+}
+
+.premium-glass-card:hover {
+  transform: translateY(-4px) scale(1.005);
+  border-color: rgba(255, 200, 1, 0.25);
+  box-shadow: 
+    0 20px 40px rgba(17, 76, 90, 0.25),
+    0 0 30px rgba(255, 200, 1, 0.06),
+    inset 0 1px 1px rgba(217, 232, 226, 0.1);
+}
+
+.premium-glass-card:hover::before {
+  opacity: 1;
 }
 
 /* Holographic Glassmorphism */
@@ -85,6 +175,39 @@
   border-color: rgba(255, 200, 1, 0.3); /* Forsythia highlight */
   box-shadow: 0 12px 40px -10px rgba(255, 200, 1, 0.15);
   transform: translateY(-2px);
+}
+
+/* Scroll Choreography Transitions */
+.reveal-on-scroll {
+  opacity: 0;
+  transition: all 1000ms cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform, opacity, filter;
+}
+
+.reveal-fade {
+  transform: translateY(20px);
+  filter: blur(4px);
+}
+
+.reveal-slide-left {
+  transform: translateX(-40px);
+  filter: blur(4px);
+}
+
+.reveal-slide-right {
+  transform: translateX(40px);
+  filter: blur(4px);
+}
+
+.reveal-scale-up {
+  transform: scale(0.96);
+  filter: blur(4px);
+}
+
+.reveal-active {
+  opacity: 1;
+  transform: translate(0) scale(1);
+  filter: blur(0);
 }
 
 /* Noise Texture Overlay */

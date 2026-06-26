@@ -16,8 +16,12 @@ import {
   Settings 
 } from 'lucide-react';
 import MagneticButton from '../shared/MagneticButton';
+import Reveal from '../shared/Reveal';
+
+const ThreeNeuralSphere = React.lazy(() => import('../shared/ThreeNeuralSphere'));
 
 export default function Hero() {
+  const [activeConsoleTab, setActiveConsoleTab] = useState<'hologram' | 'pipeline'>('hologram');
   // Live Simulation States
   const [pipelineState, setPipelineState] = useState<'idle' | 'parsing' | 'transforming' | 'validating' | 'done'>('idle');
   const [consoleLogs, setConsoleLogs] = useState<string[]>([
@@ -136,96 +140,108 @@ export default function Hero() {
           <div className="lg:col-span-6 space-y-8 text-center lg:text-left">
             
             {/* Private Beta Badge */}
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-forsythia/10 border border-forsythia/20 text-xs font-semibold text-forsythia uppercase tracking-widest leading-none mx-auto lg:mx-0">
-              <Sparkles className="w-3.5 h-3.5 text-forsythia animate-pulse" />
-              Next-Generation Autonomous OS
-            </div>
+            <Reveal animation="fade" delay={100}>
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-forsythia/10 border border-forsythia/20 text-xs font-semibold text-forsythia uppercase tracking-widest leading-none mx-auto lg:mx-0">
+                <Sparkles className="w-3.5 h-3.5 text-forsythia animate-pulse" />
+                Next-Generation Autonomous OS
+              </div>
+            </Reveal>
 
             {/* Display Headline */}
-            <h1 className="text-4xl md:text-6xl font-display font-black text-arctic-powder tracking-tight leading-[1.08]">
-              Decouple Your Ingestion Layer with{' '}
-              <span className="bg-clip-text text-transparent bg-gradient-to-r from-forsythia via-deep-saffron to-forsythia bg-[size:200%] animate-shimmer">
-                Autonomous AI Agents
-              </span>
-            </h1>
+            <Reveal animation="fade" delay={250}>
+              <h1 className="text-4xl md:text-6xl font-display font-black text-arctic-powder tracking-tight leading-[1.08]">
+                Decouple Your Ingestion Layer with{' '}
+                <span className="bg-clip-text text-transparent bg-gradient-to-r from-forsythia via-deep-saffron to-forsythia bg-[size:200%] animate-shimmer">
+                  Autonomous AI Agents
+                </span>
+              </h1>
+            </Reveal>
 
             {/* Premium Subheadline */}
-            <p className="text-sm md:text-base text-mystic-mint/80 max-w-xl mx-auto lg:mx-0 leading-relaxed">
-              Why write fragile ETL boilerplate? Axiom AI connects unstructured files directly to clean, fully structured tables, synthesizes relational schemas, and auto-corrects data anomalies in microseconds.
-            </p>
+            <Reveal animation="fade" delay={400}>
+              <p className="text-sm md:text-base text-mystic-mint/80 max-w-xl mx-auto lg:mx-0 leading-relaxed">
+                Why write fragile ETL boilerplate? Axiom AI connects unstructured files directly to clean, fully structured tables, synthesizes relational schemas, and auto-corrects data anomalies in microseconds.
+              </p>
+            </Reveal>
 
             {/* Benefit Checkpoints */}
-            <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 text-xs font-mono text-mystic-mint/70">
-              <div className="flex items-center gap-2">
-                <Check className="w-4 h-4 text-forsythia shrink-0" />
-                <span>Zero Manual Mapping</span>
+            <Reveal animation="fade" delay={550}>
+              <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 text-xs font-mono text-mystic-mint/70">
+                <div className="flex items-center gap-2">
+                  <Check className="w-4 h-4 text-forsythia shrink-0" />
+                  <span>Zero Manual Mapping</span>
+                </div>
+                <div className="hidden sm:block text-mystic-mint/30">•</div>
+                <div className="flex items-center gap-2">
+                  <Check className="w-4 h-4 text-forsythia shrink-0" />
+                  <span>Regional PPP Priced</span>
+                </div>
+                <div className="hidden sm:block text-mystic-mint/30">•</div>
+                <div className="flex items-center gap-2">
+                  <Check className="w-4 h-4 text-forsythia shrink-0" />
+                  <span>SOC2 Type II Insured</span>
+                </div>
               </div>
-              <div className="hidden sm:block text-mystic-mint/30">•</div>
-              <div className="flex items-center gap-2">
-                <Check className="w-4 h-4 text-forsythia shrink-0" />
-                <span>Regional PPP Priced</span>
-              </div>
-              <div className="hidden sm:block text-mystic-mint/30">•</div>
-              <div className="flex items-center gap-2">
-                <Check className="w-4 h-4 text-forsythia shrink-0" />
-                <span>SOC2 Type II Insured</span>
-              </div>
-            </div>
+            </Reveal>
 
             {/* Interactive CTAs */}
-            <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
-              <MagneticButton
-                onClick={() => {
-                  const pricingSection = document.getElementById('pricing');
-                  if (pricingSection) {
-                    const offset = 85;
-                    const pos = pricingSection.getBoundingClientRect().top + window.scrollY;
-                    window.scrollTo({ top: pos - offset, behavior: 'smooth' });
-                  }
-                }}
-                className="w-full sm:w-auto bg-gradient-to-r from-forsythia to-deep-saffron text-oceanic-noir font-bold px-8 py-4 rounded-xl hover:opacity-90 shadow-lg shadow-forsythia/10 flex items-center justify-center gap-2.5 group transition-all"
-                strength={0.2}
-              >
-                Start Free Trial
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </MagneticButton>
+            <Reveal animation="fade" delay={700}>
+              <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
+                <MagneticButton
+                  onClick={() => {
+                    const pricingSection = document.getElementById('pricing');
+                    if (pricingSection) {
+                      const offset = 85;
+                      const pos = pricingSection.getBoundingClientRect().top + window.scrollY;
+                      window.scrollTo({ top: pos - offset, behavior: 'smooth' });
+                    }
+                  }}
+                  className="w-full sm:w-auto bg-gradient-to-r from-forsythia to-deep-saffron text-oceanic-noir font-bold px-8 py-4 rounded-xl hover:opacity-90 shadow-lg shadow-forsythia/10 flex items-center justify-center gap-2.5 group transition-all"
+                  strength={0.2}
+                >
+                  Start Free Trial
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                </MagneticButton>
 
-              <button
-                onClick={() => {
-                  const featuresSection = document.getElementById('features');
-                  if (featuresSection) {
-                    const offset = 85;
-                    const pos = featuresSection.getBoundingClientRect().top + window.scrollY;
-                    window.scrollTo({ top: pos - offset, behavior: 'smooth' });
-                  }
-                }}
-                className="w-full sm:w-auto px-8 py-4 text-xs font-semibold text-mystic-mint hover:text-forsythia bg-nocturnal-expedition/20 border border-nocturnal-expedition/30 rounded-xl hover:bg-nocturnal-expedition/35 transition-all cursor-pointer flex items-center justify-center gap-2"
-              >
-                <Terminal className="w-3.5 h-3.5 text-mystic-mint/60" />
-                Inspect Agent Specs
-              </button>
-            </div>
+                <button
+                  onClick={() => {
+                    const featuresSection = document.getElementById('features');
+                    if (featuresSection) {
+                      const offset = 85;
+                      const pos = featuresSection.getBoundingClientRect().top + window.scrollY;
+                      window.scrollTo({ top: pos - offset, behavior: 'smooth' });
+                    }
+                  }}
+                  className="w-full sm:w-auto px-8 py-4 text-xs font-semibold text-mystic-mint hover:text-forsythia bg-nocturnal-expedition/20 border border-nocturnal-expedition/30 rounded-xl hover:bg-nocturnal-expedition/35 transition-all cursor-pointer flex items-center justify-center gap-2"
+                >
+                  <Terminal className="w-3.5 h-3.5 text-mystic-mint/60" />
+                  Inspect Agent Specs
+                </button>
+              </div>
+            </Reveal>
 
             {/* Live Infrastructure Counters */}
-            <div className="grid grid-cols-3 gap-4 pt-8 border-t border-nocturnal-expedition/30 max-w-md mx-auto lg:mx-0">
-              <div className="space-y-1">
-                <span className="text-[10px] font-mono text-mystic-mint/50 uppercase tracking-widest block">LATENCY</span>
-                <p className="text-xl font-bold font-mono text-forsythia transition-all">{latency}ms</p>
+            <Reveal animation="fade" delay={850}>
+              <div className="grid grid-cols-3 gap-4 pt-8 border-t border-nocturnal-expedition/30 max-w-md mx-auto lg:mx-0">
+                <div className="space-y-1">
+                  <span className="text-[10px] font-mono text-mystic-mint/50 uppercase tracking-widest block">LATENCY</span>
+                  <p className="text-xl font-bold font-mono text-forsythia transition-all">{latency}ms</p>
+                </div>
+                <div className="space-y-1">
+                  <span className="text-[10px] font-mono text-mystic-mint/50 uppercase tracking-widest block">THROUGHPUT</span>
+                  <p className="text-xl font-bold font-mono text-arctic-powder">{throughput.toLocaleString()}/s</p>
+                </div>
+                <div className="space-y-1">
+                  <span className="text-[10px] font-mono text-mystic-mint/50 uppercase tracking-widest block">CERTAINTY</span>
+                  <p className="text-xl font-bold font-mono text-mystic-mint">{successRate}%</p>
+                </div>
               </div>
-              <div className="space-y-1">
-                <span className="text-[10px] font-mono text-mystic-mint/50 uppercase tracking-widest block">THROUGHPUT</span>
-                <p className="text-xl font-bold font-mono text-arctic-powder">{throughput.toLocaleString()}/s</p>
-              </div>
-              <div className="space-y-1">
-                <span className="text-[10px] font-mono text-mystic-mint/50 uppercase tracking-widest block">CERTAINTY</span>
-                <p className="text-xl font-bold font-mono text-mystic-mint">{successRate}%</p>
-              </div>
-            </div>
+            </Reveal>
 
           </div>
 
           {/* RIGHT COLUMN: HIGH-POLISH "AI OS" LANDING CONSOLE */}
-          <div className="lg:col-span-6 relative w-full max-w-xl mx-auto">
+          <Reveal animation="slide-right" delay={300} className="lg:col-span-6 relative w-full max-w-xl mx-auto">
             
             {/* Holographic glowing bloom backdrops */}
             <div className="absolute -inset-1.5 bg-gradient-to-r from-forsythia via-deep-saffron to-nocturnal-expedition rounded-2xl opacity-10 blur-xl pointer-events-none z-0" />
@@ -248,88 +264,127 @@ export default function Hero() {
                 </div>
               </div>
 
-              {/* FLOW CONNECTION GRAPH: ANIMATED SVGS */}
-              <div className="p-6 bg-oceanic-noir/40 border-b border-nocturnal-expedition/30 relative">
-                
-                {/* Connector SVG Grid */}
-                <div className="flex justify-between items-center relative z-10">
-                  
-                  {/* Node 1: Stream */}
-                  <div className={`p-3 rounded-xl border flex flex-col items-center justify-center w-24 h-24 text-center transition-all duration-300 ${
-                    pipelineState === 'parsing'
-                      ? 'border-forsythia bg-forsythia/10 shadow-lg shadow-forsythia/5 scale-105'
-                      : 'border-nocturnal-expedition/40 bg-oceanic-noir/90'
-                  }`}>
-                    <Database className={`w-5 h-5 mb-1 ${pipelineState === 'parsing' ? 'text-forsythia animate-pulse' : 'text-mystic-mint/50'}`} />
-                    <span className="text-[8px] font-mono text-mystic-mint/40 block">01 / SOURCE</span>
-                    <span className="text-[10px] font-bold font-display text-arctic-powder">Raw Streams</span>
+              {/* Terminal Console Tabs */}
+              <div className="flex bg-oceanic-noir/95 px-5 border-b border-nocturnal-expedition/30 text-[10px] font-mono">
+                <button
+                  onClick={() => setActiveConsoleTab('hologram')}
+                  className={`py-2.5 px-3 border-b-2 transition-all cursor-pointer flex items-center gap-1.5 ${
+                    activeConsoleTab === 'hologram'
+                      ? 'border-forsythia text-forsythia bg-forsythia/5'
+                      : 'border-transparent text-mystic-mint/40 hover:text-mystic-mint/70'
+                  }`}
+                >
+                  <Cpu className="w-3.5 h-3.5" />
+                  3D_NEURAL_CORE
+                </button>
+                <button
+                  onClick={() => setActiveConsoleTab('pipeline')}
+                  className={`py-2.5 px-3 border-b-2 transition-all cursor-pointer flex items-center gap-1.5 ${
+                    activeConsoleTab === 'pipeline'
+                      ? 'border-forsythia text-forsythia bg-forsythia/5'
+                      : 'border-transparent text-mystic-mint/40 hover:text-mystic-mint/70'
+                  }`}
+                >
+                  <Database className="w-3.5 h-3.5" />
+                  PIPELINE_MAP
+                </button>
+              </div>
+
+              {/* CONSOLE VIEWPORTS */}
+              <div className="relative overflow-hidden bg-oceanic-noir/40 border-b border-nocturnal-expedition/30">
+                {activeConsoleTab === 'hologram' ? (
+                  <div className="p-4 relative min-h-[350px] flex items-center justify-center animate-entry">
+                    <React.Suspense fallback={
+                      <div className="flex flex-col items-center justify-center space-y-4 py-20 w-full">
+                        <div className="w-12 h-12 border-2 border-forsythia/20 border-t-forsythia rounded-full animate-spin" />
+                        <p className="text-[10px] font-mono text-mystic-mint/40">Initializing holographic engine...</p>
+                      </div>
+                    }>
+                      <ThreeNeuralSphere />
+                    </React.Suspense>
                   </div>
+                ) : (
+                  <div className="p-6 relative z-10 animate-entry">
+                    {/* Connector SVG Grid */}
+                    <div className="flex justify-between items-center relative z-10">
+                      
+                      {/* Node 1: Stream */}
+                      <div className={`p-3 rounded-xl border flex flex-col items-center justify-center w-24 h-24 text-center transition-all duration-300 ${
+                        pipelineState === 'parsing'
+                          ? 'border-forsythia bg-forsythia/10 shadow-lg shadow-forsythia/5 scale-105'
+                          : 'border-nocturnal-expedition/40 bg-oceanic-noir/90'
+                      }`}>
+                        <Database className={`w-5 h-5 mb-1 ${pipelineState === 'parsing' ? 'text-forsythia animate-pulse' : 'text-mystic-mint/50'}`} />
+                        <span className="text-[8px] font-mono text-mystic-mint/40 block">01 / SOURCE</span>
+                        <span className="text-[10px] font-bold font-display text-arctic-powder">Raw Streams</span>
+                      </div>
 
-                  {/* Flowing connector line 1-2 */}
-                  <div className="flex-1 h-12 relative mx-2">
-                    <svg className="w-full h-full overflow-visible" viewBox="0 0 100 40">
-                      <defs>
-                        <linearGradient id="gradient1" x1="0%" y1="0%" x2="100%" y2="0%">
-                          <stop offset="0%" stopColor="#114C5A" stopOpacity="0.4" />
-                          <stop offset="50%" stopColor="#FFC801" stopOpacity="0.8" />
-                          <stop offset="100%" stopColor="#FF9932" stopOpacity="0.8" />
-                        </linearGradient>
-                      </defs>
-                      <path
-                        d="M 0,20 Q 50,10 100,20"
-                        fill="none"
-                        stroke="url(#gradient1)"
-                        strokeWidth="1.5"
-                        className={pipelineState === 'parsing' || pipelineState === 'transforming' ? 'animate-[glowFlow_1.5s_linear_infinite]' : ''}
-                        strokeDasharray={pipelineState !== 'idle' ? '5, 5' : 'none'}
-                      />
-                    </svg>
+                      {/* Flowing connector line 1-2 */}
+                      <div className="flex-1 h-12 relative mx-2">
+                        <svg className="w-full h-full overflow-visible" viewBox="0 0 100 40">
+                          <defs>
+                            <linearGradient id="gradient1" x1="0%" y1="0%" x2="100%" y2="0%">
+                              <stop offset="0%" stopColor="#114C5A" stopOpacity="0.4" />
+                              <stop offset="50%" stopColor="#FFC801" stopOpacity="0.8" />
+                              <stop offset="100%" stopColor="#FF9932" stopOpacity="0.8" />
+                            </linearGradient>
+                          </defs>
+                          <path
+                            d="M 0,20 Q 50,10 100,20"
+                            fill="none"
+                            stroke="url(#gradient1)"
+                            strokeWidth="1.5"
+                            className={pipelineState === 'parsing' || pipelineState === 'transforming' ? 'animate-[glowFlow_1.5s_linear_infinite]' : ''}
+                            strokeDasharray={pipelineState !== 'idle' ? '5, 5' : 'none'}
+                          />
+                        </svg>
+                      </div>
+
+                      {/* Node 2: Cognitive Engine */}
+                      <div className={`p-3 rounded-xl border flex flex-col items-center justify-center w-24 h-24 text-center transition-all duration-300 ${
+                        pipelineState === 'transforming' || pipelineState === 'validating'
+                          ? 'border-deep-saffron bg-deep-saffron/10 shadow-lg shadow-deep-saffron/5 scale-105'
+                          : 'border-nocturnal-expedition/40 bg-oceanic-noir/90'
+                      }`}>
+                        <Cpu className={`w-5 h-5 mb-1 ${pipelineState === 'transforming' || pipelineState === 'validating' ? 'text-deep-saffron animate-spin' : 'text-mystic-mint/50'}`} />
+                        <span className="text-[8px] font-mono text-mystic-mint/40 block">02 / CORE</span>
+                        <span className="text-[10px] font-bold font-display text-arctic-powder">Axiom Cognitive</span>
+                      </div>
+
+                      {/* Flowing connector line 2-3 */}
+                      <div className="flex-1 h-12 relative mx-2">
+                        <svg className="w-full h-full overflow-visible" viewBox="0 0 100 40">
+                          <defs>
+                            <linearGradient id="gradient2" x1="0%" y1="0%" x2="100%" y2="0%">
+                              <stop offset="0%" stopColor="#FF9932" stopOpacity="0.8" />
+                              <stop offset="100%" stopColor="#D9E8E2" stopOpacity="0.4" />
+                            </linearGradient>
+                          </defs>
+                          <path
+                            d="M 0,20 Q 50,30 100,20"
+                            fill="none"
+                            stroke="url(#gradient2)"
+                            strokeWidth="1.5"
+                            className={pipelineState === 'validating' || pipelineState === 'done' ? 'animate-[glowFlow_1.5s_linear_infinite]' : ''}
+                            strokeDasharray={pipelineState !== 'idle' ? '5, 5' : 'none'}
+                          />
+                        </svg>
+                      </div>
+
+                      {/* Node 3: Structured Target */}
+                      <div className={`p-3 rounded-xl border flex flex-col items-center justify-center w-24 h-24 text-center transition-all duration-300 ${
+                        pipelineState === 'done'
+                          ? 'border-mystic-mint bg-mystic-mint/10 shadow-lg shadow-mystic-mint/5 scale-105'
+                          : 'border-nocturnal-expedition/40 bg-oceanic-noir/90'
+                      }`}>
+                        <Zap className={`w-5 h-5 mb-1 ${pipelineState === 'done' ? 'text-mystic-mint animate-bounce' : 'text-mystic-mint/50'}`} />
+                        <span className="text-[8px] font-mono text-mystic-mint/40 block">03 / TARGET</span>
+                        <span className="text-[10px] font-bold font-display text-arctic-powder">Structured DB</span>
+                      </div>
+
+                    </div>
                   </div>
-
-                  {/* Node 2: Cognitive Engine */}
-                  <div className={`p-3 rounded-xl border flex flex-col items-center justify-center w-24 h-24 text-center transition-all duration-300 ${
-                    pipelineState === 'transforming' || pipelineState === 'validating'
-                      ? 'border-deep-saffron bg-deep-saffron/10 shadow-lg shadow-deep-saffron/5 scale-105'
-                      : 'border-nocturnal-expedition/40 bg-oceanic-noir/90'
-                  }`}>
-                    <Cpu className={`w-5 h-5 mb-1 ${pipelineState === 'transforming' || pipelineState === 'validating' ? 'text-deep-saffron animate-spin' : 'text-mystic-mint/50'}`} />
-                    <span className="text-[8px] font-mono text-mystic-mint/40 block">02 / CORE</span>
-                    <span className="text-[10px] font-bold font-display text-arctic-powder">Axiom Cognitive</span>
-                  </div>
-
-                  {/* Flowing connector line 2-3 */}
-                  <div className="flex-1 h-12 relative mx-2">
-                    <svg className="w-full h-full overflow-visible" viewBox="0 0 100 40">
-                      <defs>
-                        <linearGradient id="gradient2" x1="0%" y1="0%" x2="100%" y2="0%">
-                          <stop offset="0%" stopColor="#FF9932" stopOpacity="0.8" />
-                          <stop offset="100%" stopColor="#D9E8E2" stopOpacity="0.4" />
-                        </linearGradient>
-                      </defs>
-                      <path
-                        d="M 0,20 Q 50,30 100,20"
-                        fill="none"
-                        stroke="url(#gradient2)"
-                        strokeWidth="1.5"
-                        className={pipelineState === 'validating' || pipelineState === 'done' ? 'animate-[glowFlow_1.5s_linear_infinite]' : ''}
-                        strokeDasharray={pipelineState !== 'idle' ? '5, 5' : 'none'}
-                      />
-                    </svg>
-                  </div>
-
-                  {/* Node 3: Structured Target */}
-                  <div className={`p-3 rounded-xl border flex flex-col items-center justify-center w-24 h-24 text-center transition-all duration-300 ${
-                    pipelineState === 'done'
-                      ? 'border-mystic-mint bg-mystic-mint/10 shadow-lg shadow-mystic-mint/5 scale-105'
-                      : 'border-nocturnal-expedition/40 bg-oceanic-noir/90'
-                  }`}>
-                    <Zap className={`w-5 h-5 mb-1 ${pipelineState === 'done' ? 'text-mystic-mint animate-bounce' : 'text-mystic-mint/50'}`} />
-                    <span className="text-[8px] font-mono text-mystic-mint/40 block">03 / TARGET</span>
-                    <span className="text-[10px] font-bold font-display text-arctic-powder">Structured DB</span>
-                  </div>
-
-                </div>
-
+                )}
               </div>
 
               {/* TERMINAL OUTPUT PANEL */}
@@ -442,7 +497,7 @@ export default function Hero() {
               </div>
 
             </div>
-          </div>
+          </Reveal>
 
         </div>
       </div>

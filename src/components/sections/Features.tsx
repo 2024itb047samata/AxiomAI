@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Database, Cpu, ShieldAlert, Workflow, ChevronDown, Layers } from 'lucide-react';
 import { BENTO_FEATURES } from '../../constants';
 import { useMediaQuery } from '../../hooks/useMediaQuery';
+import Reveal from '../shared/Reveal';
 
 export default function Features() {
   const [activeIndex, setActiveIndex] = useState<number>(0);
@@ -186,85 +187,89 @@ export default function Features() {
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         
         {/* Header Title segment */}
-        <div className="text-center max-w-3xl mx-auto mb-20 md:mb-24">
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-forsythia/10 border border-forsythia/20 text-xs font-semibold text-forsythia uppercase tracking-widest mb-6">
-            <Layers className="w-3.5 h-3.5" />
-            Core Capabilities
+        <Reveal animation="fade" delay={100}>
+          <div className="text-center max-w-3xl mx-auto mb-20 md:mb-24">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-forsythia/10 border border-forsythia/20 text-xs font-semibold text-forsythia uppercase tracking-widest mb-6">
+              <Layers className="w-3.5 h-3.5" />
+              Core Capabilities
+            </div>
+            <h2 className="text-3xl md:text-5xl font-display font-bold text-arctic-powder tracking-tight leading-tight">
+              The multi-agent infrastructure for modern data pipelines
+            </h2>
+            <p className="text-mystic-mint/80 mt-4 text-base md:text-lg leading-relaxed max-w-2xl mx-auto">
+              From raw inputs to optimized, fully typed relational database tables. Powered by self-healing AI schema mapping algorithms.
+            </p>
           </div>
-          <h2 className="text-3xl md:text-5xl font-display font-bold text-arctic-powder tracking-tight leading-tight">
-            The multi-agent infrastructure for modern data pipelines
-          </h2>
-          <p className="text-mystic-mint/80 mt-4 text-base md:text-lg leading-relaxed max-w-2xl mx-auto">
-            From raw inputs to optimized, fully typed relational database tables. Powered by self-healing AI schema mapping algorithms.
-          </p>
-        </div>
+        </Reveal>
 
         {/* Dynamic Display Rendering depending on viewport matches */}
         {isMobile ? (
           /* MOBILE VIEW: VERTICAL ACCORDION PANELS */
-          <div id="mobile-accordion-wrapper" className="space-y-4">
-            {BENTO_FEATURES.map((feature, idx) => {
-              const isExpanded = activeIndex === idx;
-              return (
-                <div
-                  key={feature.id}
-                  className={`glass-panel rounded-xl overflow-hidden border transition-all duration-180 ${
-                    isExpanded ? 'border-forsythia/60 bg-nocturnal-expedition/20' : 'border-nocturnal-expedition/30'
-                  }`}
-                >
-                  {/* Accordion header button */}
-                  <button
-                    onClick={() => setActiveIndex(idx)}
-                    aria-expanded={isExpanded}
-                    id={`accordion-trigger-${feature.id}`}
-                    className="w-full flex items-center justify-between p-5 text-left select-none cursor-pointer focus-visible:outline-2 focus-visible:outline-forsythia"
-                  >
-                    <div className="flex items-center gap-3.5">
-                      <div className={`p-2 rounded-lg transition-colors ${isExpanded ? 'bg-forsythia/20 text-forsythia' : 'bg-nocturnal-expedition/20 text-mystic-mint/60'}`}>
-                        {getIcon(feature.iconName)}
-                      </div>
-                      <div>
-                        <span className="text-[9px] font-bold uppercase tracking-wider text-forsythia">
-                          {feature.tag}
-                        </span>
-                        <h3 className="text-base font-display font-semibold text-arctic-powder tracking-tight mt-0.5">
-                          {feature.title}
-                        </h3>
-                      </div>
-                    </div>
-
-                    <div className={`p-1.5 rounded-full border border-nocturnal-expedition/30 transition-transform duration-180 ${isExpanded ? 'rotate-180 bg-forsythia/20 border-forsythia/20' : 'bg-transparent'}`}>
-                      <ChevronDown className={`w-4 h-4 transition-colors ${isExpanded ? 'text-forsythia' : 'text-mystic-mint/50'}`} />
-                    </div>
-                  </button>
-
-                  {/* Accordion collapsible body panel */}
+          <Reveal animation="fade" delay={200}>
+            <div id="mobile-accordion-wrapper" className="space-y-4">
+              {BENTO_FEATURES.map((feature, idx) => {
+                const isExpanded = activeIndex === idx;
+                return (
                   <div
-                    id={`accordion-body-${feature.id}`}
-                    className={`transition-all duration-180 overflow-hidden ${
-                      isExpanded ? 'max-h-[500px] border-t border-nocturnal-expedition/30 opacity-100' : 'max-h-0 opacity-0 pointer-events-none'
+                    key={feature.id}
+                    className={`premium-glass-card rounded-xl overflow-hidden border transition-all duration-180 ${
+                      isExpanded ? 'border-forsythia/60 bg-nocturnal-expedition/20' : 'border-nocturnal-expedition/30'
                     }`}
                   >
-                    <div className="p-5 space-y-4 bg-nocturnal-expedition/5">
-                      <p className="text-xs text-mystic-mint/80 leading-relaxed">
-                        {feature.description}
-                      </p>
-                      
-                      <div className="mt-2.5">
-                        {renderMockup(feature.id, isExpanded)}
+                    {/* Accordion header button */}
+                    <button
+                      onClick={() => setActiveIndex(idx)}
+                      aria-expanded={isExpanded}
+                      id={`accordion-trigger-${feature.id}`}
+                      className="w-full flex items-center justify-between p-5 text-left select-none cursor-pointer focus-visible:outline-2 focus-visible:outline-forsythia"
+                    >
+                      <div className="flex items-center gap-3.5">
+                        <div className={`p-2 rounded-lg transition-colors ${isExpanded ? 'bg-forsythia/20 text-forsythia' : 'bg-nocturnal-expedition/20 text-mystic-mint/60'}`}>
+                          {getIcon(feature.iconName)}
+                        </div>
+                        <div>
+                          <span className="text-[9px] font-bold uppercase tracking-wider text-forsythia">
+                            {feature.tag}
+                          </span>
+                          <h3 className="text-base font-display font-semibold text-arctic-powder tracking-tight mt-0.5">
+                            {feature.title}
+                          </h3>
+                        </div>
+                      </div>
+
+                      <div className={`p-1.5 rounded-full border border-nocturnal-expedition/30 transition-transform duration-180 ${isExpanded ? 'rotate-180 bg-forsythia/20 border-forsythia/20' : 'bg-transparent'}`}>
+                        <ChevronDown className={`w-4 h-4 transition-colors ${isExpanded ? 'text-forsythia' : 'text-mystic-mint/50'}`} />
+                      </div>
+                    </button>
+
+                    {/* Accordion collapsible body panel */}
+                    <div
+                      id={`accordion-body-${feature.id}`}
+                      className={`transition-all duration-180 overflow-hidden ${
+                        isExpanded ? 'max-h-[500px] border-t border-nocturnal-expedition/30 opacity-100' : 'max-h-0 opacity-0 pointer-events-none'
+                      }`}
+                    >
+                      <div className="p-5 space-y-4 bg-nocturnal-expedition/5">
+                        <p className="text-xs text-mystic-mint/80 leading-relaxed">
+                          {feature.description}
+                        </p>
+                        
+                        <div className="mt-2.5">
+                          {renderMockup(feature.id, isExpanded)}
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              );
-            })}
-          </div>
+                );
+              })}
+            </div>
+          </Reveal>
         ) : (
           /* DESKTOP VIEW: BENTO GRID INTERACTIVE PANELS */
           <div id="desktop-bento-grid-wrapper" className="grid grid-cols-2 gap-8 items-stretch">
             
             {/* Left Selection Navigator column */}
-            <div className="space-y-4">
+            <Reveal animation="slide-left" delay={200} className="space-y-4">
               {BENTO_FEATURES.map((feature, idx) => {
                 const isActive = activeIndex === idx;
                 return (
@@ -311,35 +316,37 @@ export default function Features() {
                   </div>
                 );
               })}
-            </div>
+            </Reveal>
 
             {/* Right Display visualizer column */}
-            <div className="glass-panel border border-nocturnal-expedition/30 rounded-3xl p-8 flex flex-col justify-between bg-nocturnal-expedition/10 relative overflow-hidden h-full min-h-[400px]">
-              {/* Center glow radial lighting spot */}
-              <div className="absolute inset-x-0 top-1/4 h-[300px] rounded-full bg-forsythia/5 blur-3xl pointer-events-none" />
-              
-              <div className="relative z-10 space-y-4">
-                <span className="text-[10px] font-mono font-bold tracking-widest text-mystic-mint/40 uppercase">
-                  Live System Diagnostics
-                </span>
-                <h3 className="text-2xl font-display font-bold text-arctic-powder tracking-tight">
-                  {BENTO_FEATURES[activeIndex].title}
-                </h3>
-                <p className="text-xs text-mystic-mint/80 leading-relaxed max-w-sm">
-                  Review the mechanical operations of our multi-agent automation nodes during continuous ingestion.
-                </p>
-              </div>
+            <Reveal animation="slide-right" delay={350} className="h-full">
+              <div className="premium-glass-card border border-nocturnal-expedition/30 rounded-3xl p-8 flex flex-col justify-between bg-nocturnal-expedition/10 relative overflow-hidden h-full min-h-[400px]">
+                {/* Center glow radial lighting spot */}
+                <div className="absolute inset-x-0 top-1/4 h-[300px] rounded-full bg-forsythia/5 blur-3xl pointer-events-none" />
+                
+                <div className="relative z-10 space-y-4">
+                  <span className="text-[10px] font-mono font-bold tracking-widest text-mystic-mint/40 uppercase">
+                    Live System Diagnostics
+                  </span>
+                  <h3 className="text-2xl font-display font-bold text-arctic-powder tracking-tight">
+                    {BENTO_FEATURES[activeIndex].title}
+                  </h3>
+                  <p className="text-xs text-mystic-mint/80 leading-relaxed max-w-sm">
+                    Review the mechanical operations of our multi-agent automation nodes during continuous ingestion.
+                  </p>
+                </div>
 
-              {/* Central diagnostics visualizer node */}
-              <div className="my-8 relative z-10 bg-oceanic-noir/50 p-4 rounded-2xl border border-nocturnal-expedition/30 shadow-inner">
-                {renderMockup(BENTO_FEATURES[activeIndex].id, true)}
-              </div>
+                {/* Central diagnostics visualizer node */}
+                <div className="my-8 relative z-10 bg-oceanic-noir/50 p-4 rounded-2xl border border-nocturnal-expedition/30 shadow-inner animate-entry" key={activeIndex}>
+                  {renderMockup(BENTO_FEATURES[activeIndex].id, true)}
+                </div>
 
-              <div className="relative z-10 border-t border-nocturnal-expedition/30 pt-4 flex justify-between items-center text-[10px] font-mono text-mystic-mint/40">
-                <span>Active metric: <strong className="text-forsythia">{BENTO_FEATURES[activeIndex].metric}</strong></span>
-                <span>ISO 27001 Protected</span>
+                <div className="relative z-10 border-t border-nocturnal-expedition/30 pt-4 flex justify-between items-center text-[10px] font-mono text-mystic-mint/40">
+                  <span>Active metric: <strong className="text-forsythia">{BENTO_FEATURES[activeIndex].metric}</strong></span>
+                  <span>ISO 27001 Protected</span>
+                </div>
               </div>
-            </div>
+            </Reveal>
 
           </div>
         )}

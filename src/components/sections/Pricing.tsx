@@ -16,6 +16,7 @@ import {
 import { currencyConfig } from '../../config/pricingMatrix';
 import { calculatePlanPrice } from '../../utils/pricingCalculator';
 import { Currency, BillingCycle } from '../../types';
+import Reveal from '../shared/Reveal';
 
 export default function Pricing() {
   // ISO State Isolation: State is scoped locally to prevent triggering parent or global app re-renders.
@@ -180,21 +181,24 @@ export default function Pricing() {
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-forsythia/10 border border-forsythia/20 text-xs font-semibold text-forsythia uppercase tracking-widest mb-6">
-            <Zap className="w-3.5 h-3.5" />
-            Flexible Infrastructure Plans
+        <Reveal animation="fade" delay={100}>
+          <div className="text-center max-w-3xl mx-auto mb-16">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-forsythia/10 border border-forsythia/20 text-xs font-semibold text-forsythia uppercase tracking-widest mb-6">
+              <Zap className="w-3.5 h-3.5" />
+              Flexible Infrastructure Plans
+            </div>
+            <h2 className="text-3xl md:text-5xl font-display font-bold text-arctic-powder tracking-tight leading-tight">
+              Fair, adaptive pricing built for global engineering teams
+            </h2>
+            <p className="text-mystic-mint/80 mt-4 text-sm md:text-base leading-relaxed max-w-2xl mx-auto">
+              Calculated in real-time, adjusting for purchasing power parity (PPP) multipliers and long-term commitments.
+            </p>
           </div>
-          <h2 className="text-3xl md:text-5xl font-display font-bold text-arctic-powder tracking-tight leading-tight">
-            Fair, adaptive pricing built for global engineering teams
-          </h2>
-          <p className="text-mystic-mint/80 mt-4 text-sm md:text-base leading-relaxed max-w-2xl mx-auto">
-            Calculated in real-time, adjusting for purchasing power parity (PPP) multipliers and long-term commitments.
-          </p>
-        </div>
+        </Reveal>
 
         {/* Pricing Selection Toolbar (Isolated State Controls) */}
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-6 mb-16 bg-nocturnal-expedition/15 p-4 rounded-2xl border border-nocturnal-expedition/30 max-w-xl mx-auto backdrop-blur-md">
+        <Reveal animation="scale-up" delay={250}>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-6 mb-16 bg-nocturnal-expedition/15 p-4 rounded-2xl border border-nocturnal-expedition/30 max-w-xl mx-auto backdrop-blur-md relative z-20">
           
           {/* Billing Cycle Toggle */}
           <div className="flex flex-col items-center sm:items-start gap-2">
@@ -248,24 +252,25 @@ export default function Pricing() {
             </div>
           </div>
         </div>
+        </Reveal>
 
         {/* Pricing Cards Grid */}
-        <div className="grid md:grid-cols-3 gap-8 items-stretch">
-          {computedPlans.map((plan) => {
+        <div className="grid md:grid-cols-3 gap-8 items-stretch relative z-10">
+          {computedPlans.map((plan, index) => {
             const pricing = plan.pricing;
             const currencySymbol = currencyConfig[currency].symbol;
             const isYearly = billingCycle === 'yearly';
 
             return (
-              <div
-                key={plan.id}
-                onClick={() => handlePlanSelect(plan.id)}
-                className={`glass-panel rounded-2xl p-8 relative flex flex-col justify-between transition-all duration-300 border cursor-pointer group hover:scale-[1.01] ${
-                  plan.popular
-                    ? 'border-forsythia ring-1 ring-forsythia/40 bg-nocturnal-expedition/20 shadow-2xl shadow-forsythia/5 md:-translate-y-2 hover:border-deep-saffron'
-                    : 'border-nocturnal-expedition/30 hover:border-forsythia/30 hover:bg-nocturnal-expedition/10'
-                }`}
-              >
+              <Reveal animation="scale-up" delay={300 + index * 100} key={plan.id} className="h-full flex">
+                <div
+                  onClick={() => handlePlanSelect(plan.id)}
+                  className={`premium-glass-card rounded-2xl p-8 relative flex flex-col justify-between transition-all duration-300 border cursor-pointer group hover:scale-[1.01] hover:shadow-2xl hover:shadow-forsythia/10 w-full ${
+                    plan.popular
+                      ? 'border-forsythia ring-1 ring-forsythia/40 bg-nocturnal-expedition/20 shadow-2xl shadow-forsythia/5 md:-translate-y-2 hover:border-deep-saffron'
+                      : 'border-nocturnal-expedition/30 hover:border-forsythia/30 hover:bg-nocturnal-expedition/10'
+                  }`}
+                >
                 {/* Popular badge */}
                 {plan.popular && (
                   <div className="absolute top-0 right-6 -translate-y-1/2 bg-gradient-to-r from-forsythia to-deep-saffron text-oceanic-noir text-[9px] font-bold uppercase tracking-widest px-3 py-1 rounded-full shadow-lg shadow-forsythia/20 flex items-center gap-1">
@@ -336,7 +341,7 @@ export default function Pricing() {
                     e.stopPropagation(); // Avoid double handler firing
                     handlePlanSelect(plan.id);
                   }}
-                  className={`w-full py-3.5 rounded-xl text-xs font-semibold tracking-wide cursor-pointer transition-all duration-180 focus-visible:outline-2 focus-visible:outline-forsythia ${
+                  className={`w-full py-3.5 rounded-xl text-xs font-semibold tracking-wide cursor-pointer transition-all duration-180 focus-visible:outline-2 focus-visible:outline-forsythia relative z-10 ${
                     plan.popular
                       ? 'bg-gradient-to-r from-forsythia to-deep-saffron hover:opacity-90 text-oceanic-noir shadow-xl shadow-forsythia/10 font-bold'
                       : 'bg-nocturnal-expedition/30 text-mystic-mint/80 border border-nocturnal-expedition/40 hover:bg-nocturnal-expedition/40 hover:text-forsythia'
@@ -345,18 +350,20 @@ export default function Pricing() {
                   {plan.buttonText}
                 </button>
               </div>
+              </Reveal>
             );
           })}
         </div>
 
         {/* Dynamic Multiplier Verification Disclosure */}
-        <div className="mt-12 flex flex-col sm:flex-row items-center justify-between gap-4 p-5 rounded-xl bg-nocturnal-expedition/10 border border-nocturnal-expedition/30 max-w-4xl mx-auto text-center sm:text-left">
-          <div className="flex items-center gap-3">
-            <Shield className="w-5 h-5 text-forsythia shrink-0" />
-            <p className="text-[10px] text-mystic-mint/70 leading-normal font-mono">
-              Prices dynamically computed: <strong>Base Price USD</strong> × <strong>Exchange Rate ({currency})</strong> × <strong>Regional PPP ({currencyConfig[currency].regionalMultiplier}x)</strong> × <strong>Billing Discount ({billingCycle === 'yearly' ? '0.8x' : '1.0x'})</strong>.
-            </p>
-          </div>
+        <Reveal animation="fade" delay={650}>
+          <div className="mt-12 flex flex-col sm:flex-row items-center justify-between gap-4 p-5 rounded-xl bg-nocturnal-expedition/10 border border-nocturnal-expedition/30 max-w-4xl mx-auto text-center sm:text-left relative z-20">
+            <div className="flex items-center gap-3">
+              <Shield className="w-5 h-5 text-forsythia shrink-0" />
+              <p className="text-[10px] text-mystic-mint/70 leading-normal font-mono">
+                Prices dynamically computed: <strong>Base Price USD</strong> × <strong>Exchange Rate ({currency})</strong> × <strong>Regional PPP ({currencyConfig[currency].regionalMultiplier}x)</strong> × <strong>Billing Discount ({billingCycle === 'yearly' ? '0.8x' : '1.0x'})</strong>.
+              </p>
+            </div>
           <button
             onClick={() => {
               const faq = document.getElementById('faq');
@@ -372,6 +379,7 @@ export default function Pricing() {
             <HelpCircle className="w-3.5 h-3.5" />
           </button>
         </div>
+        </Reveal>
 
       </div>
 

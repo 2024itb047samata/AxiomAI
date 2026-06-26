@@ -95,6 +95,13 @@ export default function App() {
       {/* Absolute high-performance Canvas particle background (with built-in reduced-motion support) */}
       <CanvasParticles />
 
+      {/* Immersive Futuristic Keynote Background Layers */}
+      <div className="perspective-container">
+        <div className="perspective-grid" />
+      </div>
+      <div className="volumetric-light-ray" />
+      <div className="absolute inset-0 noise-overlay opacity-[0.02] pointer-events-none z-[1]" />
+
       {/* Dual trailing custom cursor tracking desktop pointer devices */}
       <CustomCursor />
 
